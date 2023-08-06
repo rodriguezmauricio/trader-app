@@ -1,14 +1,20 @@
+// REGULAR IMPORTS
 import { View, StyleSheet } from "react-native";
 import React, { useState } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+// import { TextInputMask } from "react-native-masked-text";
+import CurrencyInput from "react-native-currency-input";
+
+// CUSTOM IMPORTS
 import { Container, MainContainer, Paragraph, Title, theme } from "../../styles/styles";
 import { NbtTextInput, TitleContainer } from "../../screens/NewBacktest/newBacktestScreenStyle";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "../Buttons/Button";
-import { TouchableOpacity } from "react-native-gesture-handler";
+
+//REDUX IMPORTS
+import { useDispatch, useSelector } from "react-redux";
 import { updateTrade, removeTrade } from "../../redux/tradesFromBacktestsSlice";
 import { RootState } from "../../redux/store";
-import { TextInputMask } from "react-native-masked-text";
 
 type ITrade = {
   backtestId: string;
@@ -109,23 +115,51 @@ const EditTradeModal = ({ closeEditModal }: IEditTradeModal) => {
 
         {/* {inputToShow(asset, "entry")} */}
         {asset === "win" ? (
-          <TextInputMask
+          // <TextInputMask
+          //   style={styles.input}
+          //   type="money"
+          //   options={{
+          //     maskType: "BRL",
+          //     precision: 0,
+          //     separator: ",",
+          //     delimiter: ".",
+          //     unit: "",
+          //   }}
+          //   value={formContent.entry}
+          //   onChangeText={(value) => handleFormContent("entry", value)}
+          // />
+
+          //TODO: Verificar se está funcionando
+          <CurrencyInput
             style={styles.input}
-            type="money"
-            options={{
-              maskType: "BRL",
-              precision: 0,
-              separator: ",",
-              delimiter: ".",
-              unit: "",
-            }}
-            value={formContent.entry}
-            onChangeText={(value) => handleFormContent("entry", value)}
+            precision={0}
+            separator=","
+            delimiter="."
+            prefix=""
+            placeholder="ex.: 120,00"
+            placeholderTextColor={theme.textGray}
+            keyboardType="numeric"
+            // onChangeText={(value) => handleFormContent("entry", value)}
+            onChangeValue={(value) => handleFormContent("entry", String(value))}
+            value={Number(formContent.entry)}
           />
         ) : (
-          <NbtTextInput
-            value={formContent.entry}
-            onChangeText={(value) => handleFormContent("entry", value)}
+          // <NbtTextInput
+          //   value={formContent.entry}
+          //   onChangeText={(value) => handleFormContent("entry", value)}
+          // />
+          <CurrencyInput
+            style={styles.input}
+            precision={2}
+            separator=","
+            delimiter="."
+            prefix=""
+            placeholder="ex.: 120,00"
+            placeholderTextColor={theme.textGray}
+            keyboardType="numeric"
+            // onChangeText={(value) => handleFormContent("entry", value)}
+            onChangeValue={(value) => handleFormContent("entry", String(value))}
+            value={Number(formContent.entry)}
           />
         )}
       </Container>
@@ -137,23 +171,49 @@ const EditTradeModal = ({ closeEditModal }: IEditTradeModal) => {
           <Paragraph style={{ fontSize: 16 }}>Valor de saída</Paragraph>
         </TitleContainer>
         {asset === "win" ? (
-          <TextInputMask
+          // <TextInputMask
+          //   style={styles.input}
+          //   type="money"
+          //   options={{
+          //     maskType: "BRL",
+          //     precision: 0,
+          //     separator: ",",
+          //     delimiter: ".",
+          //     unit: "",
+          //   }}
+          //   value={formContent.exit}
+          //   onChangeText={(value) => handleFormContent("exit", value)}
+          // />
+          <CurrencyInput
             style={styles.input}
-            type="money"
-            options={{
-              maskType: "BRL",
-              precision: 0,
-              separator: ",",
-              delimiter: ".",
-              unit: "",
-            }}
-            value={formContent.exit}
-            onChangeText={(value) => handleFormContent("exit", value)}
+            precision={0}
+            separator=","
+            delimiter="."
+            prefix=""
+            placeholder="ex.: 120,00"
+            placeholderTextColor={theme.textGray}
+            keyboardType="numeric"
+            // onChangeText={(value) => handleFormContent("entry", value)}
+            onChangeValue={(value) => handleFormContent("exit", String(value))}
+            value={Number(formContent.exit)}
           />
         ) : (
-          <NbtTextInput
-            value={formContent.exit}
-            onChangeText={(value) => handleFormContent("exit", value)}
+          // <NbtTextInput
+          //   value={formContent.exit}
+          //   onChangeText={(value) => handleFormContent("exit", value)}
+          // />
+          <CurrencyInput
+            style={styles.input}
+            precision={2}
+            separator=","
+            delimiter="."
+            prefix=""
+            placeholder="ex.: 120,00"
+            placeholderTextColor={theme.textGray}
+            keyboardType="numeric"
+            // onChangeText={(value) => handleFormContent("entry", value)}
+            onChangeValue={(value) => handleFormContent("exit", String(value))}
+            value={Number(formContent.exit)}
           />
         )}
       </Container>

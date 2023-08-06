@@ -18,7 +18,8 @@ import {
 import { NbtTextInput } from "../NewBacktest/newBacktestScreenStyle";
 import { XView } from "../Home/HomeScreenStyle";
 import Button from "../../components/Buttons/Button";
-import { TextInputMask } from "react-native-masked-text";
+// import { TextInputMask } from "react-native-masked-text";
+import CurrencyInput from "react-native-currency-input";
 // import { MaskedTextInput } from "react-native-mask-text";
 import TimePlaceholder from "../../components/DateTimePlaceholder/TimePlaceholder";
 import DatePlaceholder from "../../components/DateTimePlaceholder/DatePlaceholder";
@@ -285,28 +286,51 @@ const EditTradeJournalScreen = () => {
     }, 100);
   };
 
+  const fixValue = (value: any) => {
+    if (value === undefined) {
+      return null;
+    }
+    return value;
+  };
+
   const renderClosedTradeInputs = () => {
     if (tradeForm.asset === "win") {
       return (
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInputMask
+            // <TextInputMask
+            //   style={styles.input}
+            //   type="money"
+            //   options={{
+            //     maskType: "BRL",
+            //     precision: 0,
+            //     separator: ",",
+            //     delimiter: ".",
+            //     unit: "",
+            //   }}
+            //   placeholder="ex.: 120.025"
+            //   placeholderTextColor={theme.textGray}
+            //   keyboardType="numeric"
+            //   onBlur={onBlur}
+            //   onChangeText={onChange}
+            //   value={String(value)}
+            // />
+            <CurrencyInput
               style={styles.input}
-              type="money"
-              options={{
-                maskType: "BRL",
-                precision: 0,
-                separator: ",",
-                delimiter: ".",
-                unit: "",
-              }}
+              precision={0}
+              separator=","
+              delimiter="."
+              prefix=""
               placeholder="ex.: 120.025"
               placeholderTextColor={theme.textGray}
               keyboardType="numeric"
               onBlur={onBlur}
-              onChangeText={onChange}
-              value={String(value)}
+              onChangeText={(formattedValue) => {
+                setTradeForm({ ...tradeForm, exitValue: formattedValue });
+              }}
+              onChangeValue={onChange}
+              value={fixValue(value)}
             />
           )}
           name="exitValue"
@@ -324,14 +348,30 @@ const EditTradeJournalScreen = () => {
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          <NbtTextInput
+          // <NbtTextInput
+          //   style={styles.input}
+          //   placeholder="ex.: 120,20"
+          //   placeholderTextColor={theme.textGray}
+          //   keyboardType="numeric"
+          //   onBlur={onBlur}
+          //   onChangeText={onChange}
+          //   value={String(value)}
+          // />
+          <CurrencyInput
             style={styles.input}
-            placeholder="ex.: 120,20"
+            precision={2}
+            separator=","
+            delimiter="."
+            prefix=""
+            placeholder="ex.: 120,00"
             placeholderTextColor={theme.textGray}
             keyboardType="numeric"
             onBlur={onBlur}
-            onChangeText={onChange}
-            value={String(value)}
+            onChangeText={(formattedValue) => {
+              setTradeForm({ ...tradeForm, exitValue: formattedValue });
+            }}
+            onChangeValue={onChange}
+            value={fixValue(value)}
           />
         )}
         name="exitValue"
@@ -467,22 +507,38 @@ const EditTradeJournalScreen = () => {
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInputMask
+                        // <TextInputMask
+                        //   style={styles.input}
+                        //   type="money"
+                        //   options={{
+                        //     maskType: "BRL",
+                        //     precision: 0,
+                        //     separator: ",",
+                        //     delimiter: ".",
+                        //     unit: "",
+                        //   }}
+                        //   placeholder="ex.: 120.350"
+                        //   placeholderTextColor={theme.textGray}
+                        //   keyboardType="numeric"
+                        //   onBlur={onBlur}
+                        //   onChangeText={onChange}
+                        //   value={String(value)}
+                        // />
+                        <CurrencyInput
                           style={styles.input}
-                          type="money"
-                          options={{
-                            maskType: "BRL",
-                            precision: 0,
-                            separator: ",",
-                            delimiter: ".",
-                            unit: "",
-                          }}
+                          precision={0}
+                          separator=","
+                          delimiter="."
+                          prefix=""
                           placeholder="ex.: 120.350"
                           placeholderTextColor={theme.textGray}
                           keyboardType="numeric"
                           onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={String(value)}
+                          onChangeText={(formattedValue) => {
+                            setTradeForm({ ...tradeForm, entryValue: formattedValue });
+                          }}
+                          onChangeValue={onChange}
+                          value={fixValue(value)}
                         />
                       )}
                       name="entryValue"
@@ -497,22 +553,38 @@ const EditTradeJournalScreen = () => {
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInputMask
+                        // <TextInputMask
+                        //   style={styles.input}
+                        //   type="money"
+                        //   options={{
+                        //     maskType: "BRL",
+                        //     precision: 0,
+                        //     separator: ",",
+                        //     delimiter: ".",
+                        //     unit: "",
+                        //   }}
+                        //   placeholder="ex.: 120,00"
+                        //   placeholderTextColor={theme.textGray}
+                        //   keyboardType="numeric"
+                        //   onBlur={onBlur}
+                        //   onChangeText={onChange}
+                        //   value={String(value)}
+                        // />
+                        <CurrencyInput
                           style={styles.input}
-                          type="money"
-                          options={{
-                            maskType: "BRL",
-                            precision: 0,
-                            separator: ",",
-                            delimiter: ".",
-                            unit: "",
-                          }}
+                          precision={2}
+                          separator=","
+                          delimiter="."
+                          prefix=""
                           placeholder="ex.: 120,00"
                           placeholderTextColor={theme.textGray}
                           keyboardType="numeric"
                           onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={String(value)}
+                          onChangeText={(formattedValue) => {
+                            setTradeForm({ ...tradeForm, entryValue: formattedValue });
+                          }}
+                          onChangeValue={onChange}
+                          value={fixValue(value)}
                         />
                       )}
                       name="entryValue"
@@ -538,22 +610,38 @@ const EditTradeJournalScreen = () => {
                   <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
-                      <TextInputMask
-                        type="money"
-                        options={{
-                          maskType: "BRL",
-                          precision: 0,
-                          separator: ",",
-                          delimiter: ".",
-                          unit: "",
-                        }}
+                      // <TextInputMask
+                      //   type="money"
+                      //   options={{
+                      //     maskType: "BRL",
+                      //     precision: 0,
+                      //     separator: ",",
+                      //     delimiter: ".",
+                      //     unit: "",
+                      //   }}
+                      //   style={styles.input}
+                      //   placeholder="ex.: 50"
+                      //   placeholderTextColor={theme.textGray}
+                      //   keyboardType="numeric"
+                      //   onBlur={onBlur}
+                      //   onChangeText={onChange}
+                      //   value={String(value)}
+                      // />
+                      <CurrencyInput
                         style={styles.input}
-                        placeholder="ex.: 50"
+                        precision={0}
+                        separator=","
+                        delimiter="."
+                        prefix=""
+                        placeholder="ex.: 10"
                         placeholderTextColor={theme.textGray}
                         keyboardType="numeric"
                         onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={String(value)}
+                        onChangeText={(formattedValue) => {
+                          setTradeForm({ ...tradeForm, positionSize: formattedValue });
+                        }}
+                        onChangeValue={onChange}
+                        value={fixValue(value)}
                       />
                     )}
                     name="positionSize"
@@ -607,22 +695,38 @@ const EditTradeJournalScreen = () => {
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInputMask
+                        // <TextInputMask
+                        //   style={styles.input}
+                        //   type="money"
+                        //   options={{
+                        //     maskType: "BRL",
+                        //     precision: 0,
+                        //     separator: ",",
+                        //     delimiter: ".",
+                        //     unit: "",
+                        //   }}
+                        //   placeholder="ex.: 120.715"
+                        //   placeholderTextColor={theme.textGray}
+                        //   keyboardType="numeric"
+                        //   onBlur={onBlur}
+                        //   onChangeText={onChange}
+                        //   value={value}
+                        // />
+                        <CurrencyInput
                           style={styles.input}
-                          type="money"
-                          options={{
-                            maskType: "BRL",
-                            precision: 0,
-                            separator: ",",
-                            delimiter: ".",
-                            unit: "",
-                          }}
+                          precision={0}
+                          separator=","
+                          delimiter="."
+                          prefix=""
                           placeholder="ex.: 120.715"
                           placeholderTextColor={theme.textGray}
                           keyboardType="numeric"
                           onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
+                          onChangeText={(formattedValue) => {
+                            setTradeForm({ ...tradeForm, takeProfit: formattedValue });
+                          }}
+                          onChangeValue={onChange}
+                          value={fixValue(value)}
                         />
                       )}
                       name="takeProfit"
@@ -637,14 +741,30 @@ const EditTradeJournalScreen = () => {
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
-                        <NbtTextInput
+                        // <NbtTextInput
+                        //   style={styles.input}
+                        //   placeholder="ex.: 120,50"
+                        //   placeholderTextColor={theme.textGray}
+                        //   keyboardType="numeric"
+                        //   onBlur={onBlur}
+                        //   onChangeText={onChange}
+                        //   value={value}
+                        // />
+                        <CurrencyInput
                           style={styles.input}
+                          precision={2}
+                          separator=","
+                          delimiter="."
+                          prefix=""
                           placeholder="ex.: 120,50"
                           placeholderTextColor={theme.textGray}
                           keyboardType="numeric"
                           onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
+                          onChangeText={(formattedValue) => {
+                            setTradeForm({ ...tradeForm, takeProfit: formattedValue });
+                          }}
+                          onChangeValue={onChange}
+                          value={fixValue(value)}
                         />
                       )}
                       name="takeProfit"
@@ -669,22 +789,38 @@ const EditTradeJournalScreen = () => {
                       <Controller
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
-                          <TextInputMask
+                          // <TextInputMask
+                          //   style={styles.input}
+                          //   type="money"
+                          //   options={{
+                          //     maskType: "BRL",
+                          //     precision: 0,
+                          //     separator: ",",
+                          //     delimiter: ".",
+                          //     unit: "",
+                          //   }}
+                          //   placeholder="ex.: 120.025"
+                          //   placeholderTextColor={theme.textGray}
+                          //   keyboardType="numeric"
+                          //   onBlur={onBlur}
+                          //   onChangeText={onChange}
+                          //   value={value}
+                          // />
+                          <CurrencyInput
                             style={styles.input}
-                            type="money"
-                            options={{
-                              maskType: "BRL",
-                              precision: 0,
-                              separator: ",",
-                              delimiter: ".",
-                              unit: "",
-                            }}
+                            precision={0}
+                            separator=","
+                            delimiter="."
+                            prefix=""
                             placeholder="ex.: 120.025"
                             placeholderTextColor={theme.textGray}
                             keyboardType="numeric"
                             onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
+                            onChangeText={(formattedValue) => {
+                              setTradeForm({ ...tradeForm, exitValue: formattedValue });
+                            }}
+                            onChangeValue={onChange}
+                            value={fixValue(value)}
                           />
                         )}
                         name="stopLoss"
@@ -700,14 +836,30 @@ const EditTradeJournalScreen = () => {
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
-                        <NbtTextInput
+                        // <NbtTextInput
+                        //   style={styles.input}
+                        //   placeholder="ex.: 120,00"
+                        //   placeholderTextColor={theme.textGray}
+                        //   keyboardType="numeric"
+                        //   onBlur={onBlur}
+                        //   onChangeText={onChange}
+                        //   value={value}
+                        // />
+                        <CurrencyInput
                           style={styles.input}
+                          precision={2}
+                          separator=","
+                          delimiter="."
+                          prefix=""
                           placeholder="ex.: 120,00"
                           placeholderTextColor={theme.textGray}
                           keyboardType="numeric"
                           onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
+                          onChangeText={(formattedValue) => {
+                            setTradeForm({ ...tradeForm, stopLoss: formattedValue });
+                          }}
+                          onChangeValue={onChange}
+                          value={fixValue(value)}
                         />
                       )}
                       name="stopLoss"

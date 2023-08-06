@@ -39,9 +39,7 @@ const tradesFromJournalsSlice = createSlice({
         } else if (asset === "cripto") {
           result = isLong ? exitValue - entryValue : entryValue - exitValue;
         } else if (asset === "win") {
-          result = isLong
-            ? (exitValue - entryValue) * 0.2 * 1000 // 1000 para calcular corretamente o valor
-            : (entryValue - exitValue) * 0.2 * 1000; // 1000 para calcular corretamente o valor
+          result = isLong ? (exitValue - entryValue) * 0.2 : (entryValue - exitValue) * 0.2;
         } else if (asset === "wdo") {
           result = isLong ? (exitValue - entryValue) * 10 : (entryValue - exitValue) * 10;
         }
@@ -81,9 +79,7 @@ const tradesFromJournalsSlice = createSlice({
             } else if (asset === "cripto") {
               result = isLong ? exitValue - entryValue : entryValue - exitValue;
             } else if (asset === "win") {
-              result = isLong
-                ? (exitValue - entryValue) * 0.2 * 1000 // 1000 para calcular corretamente o valor
-                : (entryValue - exitValue) * 0.2 * 1000; // 1000 para calcular corretamente o valor
+              result = isLong ? (exitValue - entryValue) * 0.2 : (entryValue - exitValue) * 0.2;
             } else if (asset === "wdo") {
               result = isLong ? (exitValue - entryValue) * 10 : (entryValue - exitValue) * 10;
             }

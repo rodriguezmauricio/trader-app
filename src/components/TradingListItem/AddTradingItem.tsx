@@ -30,8 +30,8 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
   }, []);
 
   const selectedBacktest = useSelector((state: RootState) => state.selectBacktest);
-  const [entry, setEntry] = useState("");
-  const [exit, setExit] = useState("");
+  const [entry, setEntry] = useState<Number | String | null>("");
+  const [exit, setExit] = useState<Number | String | null>("");
   // const entryValue = Number(entry.replace(".", "").replace(",", ".")).toFixed(2);
   // const exitValue = Number(exit.replace(".", "").replace(",", ".")).toFixed(2);
 
@@ -123,7 +123,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
           <CurrencyInput
             style={styles.input}
             ref={sTextInputRef}
-            precision={0}
+            precision={2}
             separator=","
             delimiter="."
             prefix=""

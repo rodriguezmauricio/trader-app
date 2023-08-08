@@ -236,6 +236,9 @@ const calcTradesResults = (
   let longTrades = 0;
   let shortTrades = 0;
 
+  const tradeProfits: Array<number> = [];
+  const tradeLosses: Array<number> = [];
+
   trades.forEach((trade: ITradeBacktest) => {
     // inicia o lucro como 0
     let profit = 0;
@@ -261,15 +264,17 @@ const calcTradesResults = (
 
     // se o resultado for positivo
     if (profit > 0) {
+      tradeProfits.push(profit); // adiciona o resultado do lucro no array
       winningTrades++; // adiciona 1 ao total de trades vencedores
       totalProfit += profit; // soma o resultado de cada trade ao resultado total
       biggestWin = Math.max(biggestWin, profit); // encontra o trade com maior resultado no lucro
-      smallestWin = Math.min(smallestWin, profit); // encontra o trade com menor resultado no lucro
+      smallestWin = Math.min(...tradeProfits); // encontra o trade com menor resultado no lucro
     } else if (profit < 0) {
+      tradeLosses.push(profit); // adiciona o resultado da perda no array
       losingTrades++; // adiciona 1 ao total de trades perdedores
       totalLoss += Math.abs(profit); // soma o prejuízo ao total de perda
-      biggestLoss = Math.max(biggestLoss, Math.abs(profit)); // encontra o trade com maior resultado negativo
-      smallestLoss = Math.min(smallestLoss, Math.abs(profit)); // encontra o trade com menor resultado negativo
+      biggestLoss = Math.min(...tradeLosses); // encontra o trade com maior resultado negativo
+      smallestLoss = Math.max(...tradeLosses); // encontra o trade com menor resultado negativo
     }
 
     if (trade.isLong) {
@@ -289,7 +294,7 @@ const calcTradesResults = (
   const avgWin = winningTrades !== 0 ? (totalProfit / winningTrades).toFixed(2) : 0;
 
   // calcula a média de perda, se existirem trades no prejuízo, senão zero
-  const avgLoss = losingTrades !== 0 ? (totalLoss / losingTrades).toFixed(2) : 0;
+  const avgLoss = losingTrades !== 0 ? ((totalLoss / losingTrades) * -1).toFixed(2) : 0;
 
   // calcula o payoff (média de lucro sobre média de perda) se existir média de perda, senão, zero
   const payoff = avgLoss !== 0 ? (Number(avgWin) / Number(avgLoss)).toFixed(2) : 0;

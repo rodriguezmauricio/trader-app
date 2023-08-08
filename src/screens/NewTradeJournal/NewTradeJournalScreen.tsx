@@ -34,8 +34,8 @@ import { useNavigation } from "@react-navigation/native";
 export type ITradeJournal = {
   journalId: string;
   tradeId: string;
-  entry: number;
-  exit: number;
+  entryValue: number;
+  exitValue: number;
   isLong: true;
   positionSize: number;
   result: number;

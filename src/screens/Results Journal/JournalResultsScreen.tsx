@@ -44,8 +44,6 @@ const JournalResultsScreen = ({ closeViewResultsScreen }: IResultsScreenProps) =
     return trade.journalId === selectedJournal;
   });
 
-  console.log(findJournal);
-
   // name of the backtest strategy
   const strategyName = findJournal?.journalName || "";
 

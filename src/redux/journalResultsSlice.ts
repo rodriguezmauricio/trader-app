@@ -117,6 +117,9 @@ const calcTradesResults = (initial: number, final: number, trades: Array<ITradeJ
   let longTrades = 0;
   let shortTrades = 0;
 
+  const tradeProfits = [];
+  const tradeLosses = [];
+
   trades.forEach((trade: ITradeJournal) => {
     // inicia o lucro como 0
     let profit = 0;
@@ -126,33 +129,35 @@ const calcTradesResults = (initial: number, final: number, trades: Array<ITradeJ
     // calcula o resultado do profit de acordo com posição long ou short e multiplica pelo tamanho da posição
     if (trade.asset === "acao") {
       profit = trade.isLong
-        ? (trade.exit - trade.entry) * trade.positionSize
-        : (trade.entry - trade.exit) * trade.positionSize;
+        ? (trade.exitValue - trade.entryValue) * trade.positionSize
+        : (trade.entryValue - trade.exitValue) * trade.positionSize;
     } else if (trade.asset === "cripto") {
       profit = trade.isLong
-        ? (trade.exit - trade.entry) * trade.positionSize
-        : (trade.entry - trade.exit) * trade.positionSize;
+        ? (trade.exitValue - trade.entryValue) * trade.positionSize
+        : (trade.entryValue - trade.exitValue) * trade.positionSize;
     } else if (trade.asset === "win") {
       profit = trade.isLong
-        ? (trade.exit - trade.entry) * WIN_MULTIPLIER * trade.positionSize
-        : (trade.entry - trade.exit) * WIN_MULTIPLIER * trade.positionSize;
+        ? (trade.exitValue - trade.entryValue) * WIN_MULTIPLIER * trade.positionSize
+        : (trade.entryValue - trade.exitValue) * WIN_MULTIPLIER * trade.positionSize;
     } else if (trade.asset === "wdo") {
       profit = trade.isLong
-        ? (trade.exit - trade.entry) * WDO_MULTIPLIER * trade.positionSize
-        : (trade.entry - trade.exit) * WDO_MULTIPLIER * trade.positionSize;
+        ? (trade.exitValue - trade.entryValue) * WDO_MULTIPLIER * trade.positionSize
+        : (trade.entryValue - trade.exitValue) * WDO_MULTIPLIER * trade.positionSize;
     }
 
     // se o resultado for positivo
     if (profit > 0) {
+      tradeProfits.push(profit);
       winningTrades++; // adiciona 1 ao total de trades vencedores
       totalProfit += profit; // soma o resultado de cada trade ao resultado total
       biggestWin = Math.max(biggestWin, profit); // encontra o trade com maior resultado no lucro
-      smallestWin = Math.min(smallestWin, profit); // encontra o trade com menor resultado no lucro
+      smallestWin = Math.min(...tradeProfits); // encontra o trade com menor resultado no lucro
     } else if (profit < 0) {
+      tradeLosses.push(profit);
       losingTrades++; // adiciona 1 ao total de trades perdedores
       totalLoss += Math.abs(profit); // soma o prejuízo ao total de perda
       biggestLoss = Math.max(biggestLoss, Math.abs(profit)); // encontra o trade com maior resultado negativo
-      smallestLoss = Math.min(smallestLoss, Math.abs(profit)); // encontra o trade com menor resultado negativo
+      smallestLoss = Math.max(...tradeLosses); // encontra o trade com menor resultado negativo
     }
 
     if (trade.isLong) {

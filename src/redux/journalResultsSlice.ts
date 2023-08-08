@@ -117,8 +117,8 @@ const calcTradesResults = (initial: number, final: number, trades: Array<ITradeJ
   let longTrades = 0;
   let shortTrades = 0;
 
-  const tradeProfits = [];
-  const tradeLosses = [];
+  const tradeProfits: Array<number> = [];
+  const tradeLosses: Array<number> = [];
 
   trades.forEach((trade: ITradeJournal) => {
     // inicia o lucro como 0

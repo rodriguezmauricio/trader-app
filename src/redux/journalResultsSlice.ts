@@ -180,7 +180,7 @@ const calcTradesResults = (initial: number, final: number, trades: Array<ITradeJ
   const avgLoss = losingTrades !== 0 ? ((totalLoss / losingTrades) * -1).toFixed(2) : 0;
 
   // calcula o payoff (média de lucro sobre média de perda) se existir média de perda, senão, zero
-  const payoff = avgLoss !== 0 ? (Number(avgWin) / Number(avgLoss)).toFixed(2) : 0;
+  const payoff = avgLoss !== 0 ? ((Number(avgWin) / Number(avgLoss)) * -1).toFixed(2) : 0;
 
   // calcula a porcentagem de trades na ponta compradora, se existirem trades, senão, zero
   const percentLong = trades[0] ? ((longTrades / totalTrades) * 100).toFixed(2) : 0;

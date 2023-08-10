@@ -2,23 +2,24 @@
 import { StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import React, { useRef } from "react";
 import { StatusBar } from "expo-status-bar";
+import { Modalize } from "react-native-modalize";
+import { View } from "react-native";
 
 // CUSTOM IMPORTS
 import { AbsoluteBgHeader, MainContainerForScroll, Title } from "../../styles/styles";
-import { View } from "react-native";
 import Button from "../../components/Buttons/Button";
+import TradeJournalCover from "../../components/TradeJournalCover/TradeJournalCover";
 
 // REDUX IMPORTS
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { RootState } from "../../redux/store";
+import { setSelectedJournal } from "../../redux/selectedJournal";
 
 // NAVIGATION IMPORTS
-import { useNavigation } from "@react-navigation/native";
-import TradeJournalCover from "../../components/TradeJournalCover/TradeJournalCover";
-import { useDispatch, useSelector } from "react-redux";
-import { Modalize } from "react-native-modalize";
+
 import AddJournalModal from "../../components/AddJournalModal/AddJournalModal";
-import { RootState } from "../../redux/store";
 import EditJournalModal from "../../components/EditJournalModal copy/EditJournalModal";
-import { setSelectedJournal } from "../../redux/selectedJournal";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootTabParamsList } from "../../routes/RootRoutes";
 

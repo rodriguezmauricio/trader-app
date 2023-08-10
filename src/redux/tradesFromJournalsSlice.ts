@@ -87,6 +87,10 @@ const tradesFromJournalsSlice = createSlice({
             result = 0;
           }
 
+          if (isNaN(result)) {
+            result = 0;
+          }
+
           const objectToAdd = { result: result * positionSize };
 
           return {

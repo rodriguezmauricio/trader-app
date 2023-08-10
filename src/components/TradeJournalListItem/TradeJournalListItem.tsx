@@ -52,7 +52,7 @@ const TradeJournalListItem = ({
             {result > 0 ? (
               <Paragraph style={styles.positivo}>+{normalizedResult}</Paragraph>
             ) : (
-              <Paragraph style={styles.negativo}>-{normalizedResult}</Paragraph>
+              <Paragraph style={styles.negativo}>{normalizedResult}</Paragraph>
             )}
           </View>
         </View>

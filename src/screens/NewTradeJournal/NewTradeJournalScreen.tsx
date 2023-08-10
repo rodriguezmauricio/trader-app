@@ -480,7 +480,7 @@ const NewTradeJournalScreen = () => {
                           separator=","
                           delimiter="."
                           prefix=""
-                          placeholder="ex.: 120.025"
+                          placeholder="ex.: 120,25"
                           placeholderTextColor={theme.textGray}
                           keyboardType="numeric"
                           onBlur={onBlur}

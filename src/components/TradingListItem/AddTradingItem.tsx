@@ -24,9 +24,17 @@ interface IAddTradingItem {
 
 const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
   const dispatch = useDispatch();
-  const sTextInputRef = createRef<TextInput>();
+  const sTextInputEntryRef = createRef<TextInput>();
+  const sTextInputExitRef = createRef<TextInput>();
+
+  const handleKeyPress = (event) => {
+    if (event.nativeEvent.key === "Enter") {
+      sTextInputExitRef.current?.focus();
+    }
+  };
+
   useEffect(() => {
-    sTextInputRef.current?.focus();
+    sTextInputEntryRef.current?.focus();
   }, []);
 
   const selectedBacktest = useSelector((state: RootState) => state.selectBacktest);
@@ -50,7 +58,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
       asset
     );
 
-    sTextInputRef.current?.focus();
+    sTextInputEntryRef.current?.focus();
     dispatch(placeTrade({ ...newTrade }));
     clearFormValues();
   };
@@ -64,7 +72,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
       positionSize,
       asset
     );
-    sTextInputRef.current?.focus();
+    sTextInputEntryRef.current?.focus();
     dispatch(placeTrade({ ...newTrade }));
     clearFormValues();
   };
@@ -99,7 +107,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
           // />
           <CurrencyInput
             style={styles.input}
-            ref={sTextInputRef}
+            ref={sTextInputEntryRef}
             precision={0}
             separator=","
             delimiter="."
@@ -109,11 +117,12 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
             keyboardType="numeric"
             // onChangeText={(formattedValue) => console.log(formattedValue)}
             onChangeValue={(value) => setEntry(value)}
+            onKeyPress={(event) => handleKeyPress(event)}
             value={fixValue(entry)}
           />
         ) : (
           // <STextInput
-          //   ref={sTextInputRef}
+          //   ref={sTextInputEntryRef}
           //   keyboardType="numeric"
           //   placeholder="Entrada"
           //   placeholderTextColor="#aaa"
@@ -122,7 +131,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
           // />
           <CurrencyInput
             style={styles.input}
-            ref={sTextInputRef}
+            ref={sTextInputEntryRef}
             precision={2}
             separator=","
             delimiter="."
@@ -132,6 +141,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
             keyboardType="numeric"
             // onChangeText={(value) => handleFormContent("entry", value)}
             onChangeValue={(value) => setEntry(value)}
+            onKeyPress={(event) => handleKeyPress(event)}
             value={fixValue(entry)}
           />
         )}
@@ -155,7 +165,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
           // />
           <CurrencyInput
             style={styles.input}
-            // ref={sTextInputRef}
+            ref={sTextInputExitRef}
             precision={0}
             separator=","
             delimiter="."
@@ -169,7 +179,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
           />
         ) : (
           // <STextInput
-          //   ref={sTextInputRef}
+          //   ref={sTextInputEntryRef}
           //   keyboardType="numeric"
           //   placeholder="Saída"
           //   placeholderTextColor="#aaa"
@@ -178,7 +188,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
           // />
           <CurrencyInput
             style={styles.input}
-            // ref={sTextInputRef}
+            ref={sTextInputExitRef}
             precision={2}
             separator=","
             delimiter="."

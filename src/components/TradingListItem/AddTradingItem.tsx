@@ -27,7 +27,7 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
   const sTextInputEntryRef = createRef<TextInput>();
   const sTextInputExitRef = createRef<TextInput>();
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: any) => {
     if (event.nativeEvent.key === "Enter") {
       sTextInputExitRef.current?.focus();
     }
@@ -40,8 +40,6 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
   const selectedBacktest = useSelector((state: RootState) => state.selectBacktest);
   const [entry, setEntry] = useState<Number | String | null>("");
   const [exit, setExit] = useState<Number | String | null>("");
-  // const entryValue = Number(entry.replace(".", "").replace(",", ".")).toFixed(2);
-  // const exitValue = Number(exit.replace(".", "").replace(",", ".")).toFixed(2);
 
   const clearFormValues = () => {
     setEntry("");
@@ -89,22 +87,6 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
       <Paragraph>+</Paragraph>
       <View style={{ flexDirection: "row", flex: 1, justifyContent: "space-around" }}>
         {asset === "win" ? (
-          // <TextInputMask
-          //   style={styles.input}
-          //   placeholder="Entrada"
-          //   placeholderTextColor="#aaa"
-          //   keyboardType="numeric"
-          //   type="money"
-          //   options={{
-          //     maskType: "BRL",
-          //     precision: 0,
-          //     separator: ",",
-          //     delimiter: ".",
-          //     unit: "",
-          //   }}
-          //   value={String(entry)}
-          //   onChangeText={(value) => setEntry(value)}
-          // />
           <CurrencyInput
             style={styles.input}
             ref={sTextInputEntryRef}
@@ -121,14 +103,6 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
             value={fixValue(entry)}
           />
         ) : (
-          // <STextInput
-          //   ref={sTextInputEntryRef}
-          //   keyboardType="numeric"
-          //   placeholder="Entrada"
-          //   placeholderTextColor="#aaa"
-          //   value={String(entry)}
-          //   onChangeText={(value) => setEntry(value)}
-          // />
           <CurrencyInput
             style={styles.input}
             ref={sTextInputEntryRef}
@@ -147,22 +121,6 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
         )}
 
         {asset === "win" ? (
-          // <TextInputMask
-          //   style={styles.input}
-          //   placeholder="Saída"
-          //   placeholderTextColor="#aaa"
-          //   keyboardType="numeric"
-          //   type="money"
-          //   options={{
-          //     maskType: "BRL",
-          //     precision: 0,
-          //     separator: ",",
-          //     delimiter: ".",
-          //     unit: "",
-          //   }}
-          //   value={String(exit)}
-          //   onChangeText={(value) => setExit(value)}
-          // />
           <CurrencyInput
             style={styles.input}
             ref={sTextInputExitRef}
@@ -178,14 +136,6 @@ const AddTradingItem = ({ positionSize, asset }: IAddTradingItem) => {
             value={fixValue(exit)}
           />
         ) : (
-          // <STextInput
-          //   ref={sTextInputEntryRef}
-          //   keyboardType="numeric"
-          //   placeholder="Saída"
-          //   placeholderTextColor="#aaa"
-          //   value={String(exit)}
-          //   onChangeText={(value) => setExit(value)}
-          // />
           <CurrencyInput
             style={styles.input}
             ref={sTextInputExitRef}
